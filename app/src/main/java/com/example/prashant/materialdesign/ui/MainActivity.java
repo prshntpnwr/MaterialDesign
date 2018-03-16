@@ -1,16 +1,18 @@
-package com.example.prashant.materialdesign;
+package com.example.prashant.materialdesign.ui;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.example.prashant.materialdesign.R;
+import com.example.prashant.materialdesign.ui.transitions.FabTransform;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,13 +29,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
+
                 Intent intent = new Intent(MainActivity.this, DialogActivity.class);
-                ActivityOptions options = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, fab,
-                            getString(R.string.transition_dialog));
-                    startActivity(intent, options.toBundle());
-                }
+                FabTransform.addExtras(intent,
+                        ContextCompat.getColor(MainActivity.this, R.color.colorAccent),
+                        android.R.drawable.ic_input_add);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, fab,
+                        getString(R.string.transition_dialog));
+                startActivity(intent, options.toBundle());
             }
         });
     }
