@@ -6,4 +6,6 @@
 
     <color name="scrim">#99323232</color>
     <color name="background_light">#fafafa</color> <!-- grey 50 -->
+    <color name="content_placeholder">#ffe0e0e0</color>
+
 </resources>
