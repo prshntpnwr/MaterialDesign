@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:textColor="@android:color/primary_text_light"
+        android:textColor="@android:color/secondary_text_dark"
         android:text="3 hours ago" />
 
     <TextView
@@ -55,7 +55,7 @@
         android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="@android:color/primary_text_light"
+        android:textColor="@android:color/secondary_text_light"
         android:text="Blah blah blah blah blah blah blah blah blah blah blah blah blah" />
 
 </RelativeLayout>
