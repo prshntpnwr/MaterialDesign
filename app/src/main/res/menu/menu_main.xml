@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.prashant.materialdesign.ui.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_check"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:checkable="true"
+        android:actionLayout="@drawable/toggle"
+        app:showAsAction="always" />
 </menu>
