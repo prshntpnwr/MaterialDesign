@@ -42,6 +42,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView avatar;
+        boolean isActive = false;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -58,6 +59,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                     );
 
                     mContext.startActivity(intent, options.toBundle());
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemView.setActivated(!itemView.isActivated());
                 }
             });
         }
