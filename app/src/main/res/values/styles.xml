@@ -39,8 +39,7 @@
         <item name="android:windowAllowEnterTransitionOverlap">false</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>
         <item name="android:windowSharedElementsUseOverlay">false</item>
-        <item name="android:windowSharedElementEnterTransition">@transition/change_image_transform</item>
-        <item name="android:windowSharedElementExitTransition">@transition/change_image_transform</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/shared_enter_transition</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

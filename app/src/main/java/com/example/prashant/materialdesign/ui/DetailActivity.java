@@ -1,22 +1,15 @@
 package com.example.prashant.materialdesign.ui;
 
 import android.graphics.drawable.AnimatedVectorDrawable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
-import android.transition.TransitionManager;
 import android.transition.TransitionSet;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.example.prashant.materialdesign.R;
 
@@ -28,6 +21,8 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         TransitionSet transitionSet = new TransitionSet();
+
+        // slide views in activity layout
         Slide slide = new Slide(Gravity.BOTTOM);
         slide.setInterpolator(
                 AnimationUtils.loadInterpolator(this, android.R.interpolator.linear_out_slow_in));
@@ -38,6 +33,7 @@ public class DetailActivity extends AppCompatActivity {
         slide.setDuration(400);
         transitionSet.addTransition(slide);
 
+        //
         Fade fade = new Fade();
         fade.excludeTarget(android.R.id.statusBarBackground, true);
         fade.excludeTarget(android.R.id.navigationBarBackground, true);

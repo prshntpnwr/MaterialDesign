@@ -4,6 +4,8 @@
 
     <string name="transition_dialog" translatable="false">transition_dialog</string>
     <string name="transition_avatar" translatable="false">transition_avatar</string>
+    <string name="transition_item" translatable="false">transition_item</string>
+    <string name="transition_background" translatable="false">transition_background</string>
 
     <string name="path_cross">M 8 5 L 8 12 L 19 12 L 19 12 L 8 5 M 8 12 L 8 19 L 19 12 L 19 12 L 8 12</string>
     <string name="path_tick">M 5 6 L 5 10 L 19 10 L 19 6 L 5 6 M 5 14 L 5 18 L 19 18 L 19 14 L 5 14</string>

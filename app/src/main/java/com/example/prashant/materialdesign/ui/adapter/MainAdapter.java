@@ -5,6 +5,7 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(MainAdapter.ViewHolder holder, int position) {
-        holder.bindView(position);
+        holder.bindView();
     }
 
     @Override
@@ -42,21 +43,24 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView avatar;
-        boolean isActive = false;
 
         ViewHolder(View itemView) {
             super(itemView);
             avatar = itemView.findViewById(R.id.player_avatar);
         }
 
-        private void bindView(int position) {
+        private void bindView() {
             avatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, DetailActivity.class);
+
+                    Pair[] transitionPairs = new Pair[2];
+                    transitionPairs[0] = Pair.create((View)avatar, avatar.getTransitionName()); // Transition the Toolbar
+                    transitionPairs[1] = Pair.create(itemView, mContext.getString(R.string.transition_background)); // Transition the content_area (This will be the content area on the detail screen)
+
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
-                            (Activity) mContext, avatar, mContext.getString(R.string.transition_avatar)
-                    );
+                            (Activity) mContext, transitionPairs);
 
                     mContext.startActivity(intent, options.toBundle());
                 }

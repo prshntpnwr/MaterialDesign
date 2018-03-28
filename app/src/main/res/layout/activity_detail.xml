@@ -7,6 +7,13 @@
     android:onClick="dismiss"
     tools:context="com.example.prashant.materialdesign.ui.DetailActivity">
 
+    <View
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_light"
+        android:transitionName="@string/transition_background" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="96dp"
