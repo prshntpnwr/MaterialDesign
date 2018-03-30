@@ -1,5 +1,6 @@
 package com.example.prashant.materialdesign.ui;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,5 +61,10 @@ public class DetailActivity extends AppCompatActivity {
 
     public void dismiss(View view) {
 //        finishAfterTransition();
+    }
+
+    public void timeline(View view) {
+        Intent intent = new Intent(this, TimelineActivity.class);
+        startActivity(intent);
     }
 }

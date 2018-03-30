@@ -11,20 +11,26 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.Launcher">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.DialogActivity"
             android:theme="@style/DialogTheme" />
+
         <activity
             android:name=".ui.DetailActivity"
             android:theme="@style/DetailTheme" />
+
+        <activity android:name=".ui.TimelineActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.Launcher" />
+
     </application>
 
 </manifest>
