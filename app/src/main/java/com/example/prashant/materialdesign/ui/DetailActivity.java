@@ -24,44 +24,44 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-//        TransitionSet transitionSet = new TransitionSet();
-//
-//        // slide views in activity layout
-//        Slide slide = new Slide(Gravity.BOTTOM);
-//        slide.setInterpolator(
-//                AnimationUtils.loadInterpolator(this, android.R.interpolator.linear_out_slow_in));
-//        slide.excludeTarget(android.R.id.statusBarBackground, true);
-//        slide.excludeTarget(android.R.id.navigationBarBackground, true);
-//        slide.excludeTarget(findViewById(R.id.checkbox), true);
-//        slide.excludeTarget(findViewById(R.id.imageView), true);
-//        slide.setDuration(400);
-//        transitionSet.addTransition(slide);
-//
-//        //
-//        Fade fade = new Fade();
-//        fade.excludeTarget(android.R.id.statusBarBackground, true);
-//        fade.excludeTarget(android.R.id.navigationBarBackground, true);
-//        fade.setDuration(100);
-//        fade.setStartDelay(300);
-//        fade.addTarget(findViewById(R.id.checkbox));
-//        transitionSet.addTransition(fade);
-//
-//        getWindow().setAllowEnterTransitionOverlap(false);
-//        getWindow().setEnterTransition(transitionSet);
-//
-//        final ImageView imageView = findViewById(R.id.action_image);
-//        final AnimatedVectorDrawable crossToTick = (AnimatedVectorDrawable) getDrawable(R.drawable.avd_cross_to_tick);
-//        final AnimatedVectorDrawable tickToCross = (AnimatedVectorDrawable) getDrawable(R.drawable.avd_tick_to_cross);
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                imageView.setImageDrawable(imageView.getDrawable() == crossToTick ? tickToCross : crossToTick);
-////                imageView.setImageDrawable(crossToTick);
-//                crossToTick.start();
-//            }
-//        });
+        TransitionSet transitionSet = new TransitionSet();
 
-        ElasticDragDismissFrameLayout mDraggableFrame = findViewById(R.id.draggable_frame);
+        // slide views in activity layout
+        Slide slide = new Slide(Gravity.BOTTOM);
+        slide.setInterpolator(
+                AnimationUtils.loadInterpolator(this, android.R.interpolator.linear_out_slow_in));
+        slide.excludeTarget(android.R.id.statusBarBackground, true);
+        slide.excludeTarget(android.R.id.navigationBarBackground, true);
+        slide.excludeTarget(findViewById(R.id.checkbox), true);
+        slide.excludeTarget(findViewById(R.id.imageView), true);
+        slide.setDuration(400);
+        transitionSet.addTransition(slide);
+
+        //
+        Fade fade = new Fade();
+        fade.excludeTarget(android.R.id.statusBarBackground, true);
+        fade.excludeTarget(android.R.id.navigationBarBackground, true);
+        fade.setDuration(100);
+        fade.setStartDelay(300);
+        fade.addTarget(findViewById(R.id.checkbox));
+        transitionSet.addTransition(fade);
+
+        getWindow().setAllowEnterTransitionOverlap(false);
+        getWindow().setEnterTransition(transitionSet);
+
+        final ImageView imageView = findViewById(R.id.action_image);
+        final AnimatedVectorDrawable crossToTick = (AnimatedVectorDrawable) getDrawable(R.drawable.avd_cross_to_tick);
+        final AnimatedVectorDrawable tickToCross = (AnimatedVectorDrawable) getDrawable(R.drawable.avd_tick_to_cross);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageView.setImageDrawable(imageView.getDrawable() == crossToTick ? tickToCross : crossToTick);
+//                imageView.setImageDrawable(crossToTick);
+                crossToTick.start();
+            }
+        });
+
+        ElasticDragDismissLinearLayout mDraggableFrame = findViewById(R.id.draggable_frame);
 
         mDraggableFrame.addListener(new ElasticDragDismissListener() {
             @Override

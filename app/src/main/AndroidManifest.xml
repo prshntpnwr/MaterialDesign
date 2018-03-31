@@ -25,7 +25,7 @@
 
         <activity
             android:name=".ui.DetailActivity"
-            android:theme="@style/AppTheme.TranslucentTheme" />
+            android:theme="@style/DetailTheme" />
 
         <activity android:name=".ui.TimelineActivity"
             android:label="@string/app_name"

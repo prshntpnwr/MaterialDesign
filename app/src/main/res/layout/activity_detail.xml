@@ -1,47 +1,149 @@
-<com.commit451.elasticdragdismisslayout.ElasticDragDismissFrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<com.commit451.elasticdragdismisslayout.ElasticDragDismissLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/draggable_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
-    app:dragDismissDistance="20dp"
-    app:dragDismissScale="0.95" >
-
-    <View
-        android:id="@+id/libs_list_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white" />
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
+    app:dragDismissDistance="112dp"
+    app:dragDismissScale="0.95">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="dismiss">
 
-            <TextView
+            <View
+                android:id="@+id/background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_light"
+                android:transitionName="@string/transition_background" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="48dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="timeline"
+                android:transitionName="@string/transition_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/avatar_placeholder" />
+
+            <View
+                android:id="@+id/title"
+                android:layout_width="140dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="36dp"
+                android:background="@color/content_placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.53"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <LinearLayout
+                android:id="@+id/display"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="36dp"
+                android:orientation="vertical"
+                android:padding="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@color/content_placeholder" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@color/content_placeholder" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_margin="8dp"
+                        android:background="@color/content_placeholder" />
+
+                    <View
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="8dp"
+                        android:background="@color/content_placeholder" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/avd_cross_to_tick" />
+
+                    <ImageView
+                        android:id="@+id/action_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:src="@drawable/avd_cross_to_tick" />
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/avd_cross_to_tick" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textColor="@android:color/black"
-                android:textSize="22sp"
-                android:text="ryktuv;h;j'kjyhgcmnb xsydfvkjblydksytdkuyfgiuflydkutuyfugulfiykduyfliug;oulfykudyflugi;oufkudkyflug;ih;goukduyflug;ih;glfikuyfilug;ihp;lkudtyflgiho;glfkduyfluihoilikudyfugih/oi;olikfylugih/;oigulikdtfuglih/;igukjydtkfuglih;oigfkdjdtukfugihgufkfyiugih;igufykuilgihigufilguihojhiglfkylihiojhglfkufyugih/;ojhigkufyguih;ojhigufkyyuighiojhglfliguhi/;ojhlikfuigu.i/;oj/holiguih/OJO/ihf,g.lh;jlhgfkguihojhigilguih/;johlfkyigulih;gfkuygu.l/k;ljhggliuhilhmvn yxjhmnc,j bmhg nb" />
+                android:layout_margin="16dp"
+                android:button="@drawable/toggle"
+                android:gravity="end|center"
+                android:padding="4dp"
+                android:textColor="@android:color/primary_text_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-
-        </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
-</com.commit451.elasticdragdismisslayout.ElasticDragDismissFrameLayout>
+</com.commit451.elasticdragdismisslayout.ElasticDragDismissLinearLayout>
