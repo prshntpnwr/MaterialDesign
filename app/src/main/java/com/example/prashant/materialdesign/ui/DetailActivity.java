@@ -12,12 +12,13 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.commit451.elasticdragdismisslayout.ElasticDragDismissFrameLayout;
-import com.commit451.elasticdragdismisslayout.ElasticDragDismissLinearLayout;
-import com.commit451.elasticdragdismisslayout.ElasticDragDismissListener;
 import com.example.prashant.materialdesign.R;
+import com.example.prashant.materialdesign.ui.widget.ElasticDragDismissFrameLayout;
 
 public class DetailActivity extends AppCompatActivity {
+
+    private ElasticDragDismissFrameLayout.ElasticDragDismissCallback dragDismissCallback;
+    private ElasticDragDismissFrameLayout draggableFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +62,18 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        ElasticDragDismissLinearLayout mDraggableFrame = findViewById(R.id.draggable_frame);
-
-        mDraggableFrame.addListener(new ElasticDragDismissListener() {
-            @Override
-            public void onDrag(float elasticOffset, float elasticOffsetPixels, float rawOffset, float rawOffsetPixels) {}
-
+        draggableFrame = findViewById(R.id.draggable_frame);
+        dragDismissCallback = new ElasticDragDismissFrameLayout.ElasticCallListener(this) {
             @Override
             public void onDragDismissed() {
-                //if you are targeting 21+ you might want to finish after transition
-                finishAfterTransition();
+                super.onDragDismissed();
             }
-        });
+
+            @Override
+            public void onDrag(float elasticOffset, float elasticOffsetPixels, float rawOffset, float rawOffsetPixels) {
+                super.onDrag(elasticOffset, elasticOffsetPixels, rawOffset, rawOffsetPixels);
+            }
+        };
     }
 
     public void dismiss(View view) {
@@ -82,5 +83,17 @@ public class DetailActivity extends AppCompatActivity {
     public void timeline(View view) {
         Intent intent = new Intent(this, TimelineActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        draggableFrame.addListener(dragDismissCallback);
+    }
+
+    @Override
+    protected void onPause() {
+        draggableFrame.removeListener(dragDismissCallback);
+        super.onPause();
     }
 }

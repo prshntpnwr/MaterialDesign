@@ -70,6 +70,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     itemView.setActivated(!itemView.isActivated());
+
                 }
             });
         }
