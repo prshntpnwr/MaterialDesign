@@ -81,7 +81,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void timeline(View view) {
-        Intent intent = new Intent(this, TimelineActivity.class);
+        Intent intent = new Intent(this, EventActivity.class);
         startActivity(intent);
     }
 

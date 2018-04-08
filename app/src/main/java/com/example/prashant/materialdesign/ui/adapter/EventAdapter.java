@@ -1,25 +1,17 @@
 package com.example.prashant.materialdesign.ui.adapter;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -27,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.prashant.materialdesign.R;
 import com.example.prashant.materialdesign.model.Timeline;
+import com.example.prashant.materialdesign.ui.EventActivity;
 
 import java.util.ArrayList;
 
@@ -34,10 +27,10 @@ import java.util.ArrayList;
  * Created by prashantpanwar on 09/03/18.
  */
 
-public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
+public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private ArrayList<Timeline> mTimelineList;
+    private int mPosition = -1;
 
     private EventCallbackListener mCallbackListener;
 
@@ -45,8 +38,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         void onEventClick(String EventType);
     }
 
-    public TimelineAdapter(Context mContext, EventCallbackListener callbackListener,
-                           ArrayList<Timeline> mTimelineList) {
+    public EventAdapter(Context mContext, EventCallbackListener callbackListener,
+                        ArrayList<Timeline> mTimelineList) {
         this.mContext = mContext;
         this.mCallbackListener = callbackListener;
         this.mTimelineList = mTimelineList;
@@ -54,14 +47,31 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_timeline_event, parent, false);
-        return new ViewHolderEvent(view);
+        View view;
+        switch (viewType) {
+            case 0:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_header, parent, false);
+                return new ViewHolder(view);
+
+            case 1:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_event, parent, false);
+                return new ViewHolderEvent(view);
+        }
+
+        return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Timeline timeline = mTimelineList.get(position);
-        ((ViewHolderEvent) holder).bindView(position, timeline);
+        switch (getItemViewType(position)) {
+            case 0:
+                ((ViewHolder) holder).bindView();
+                break;
+
+            case 1:
+                ((ViewHolderEvent) holder).bindView(position, mTimelineList.get(position));
+                break;
+        }
     }
 
     private int getEventColor(int position) {
@@ -80,6 +90,14 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             color = ContextCompat.getColor(mContext, R.color.pink_200);
 
         return color;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0)
+            return 0;
+        else
+            return 1;
     }
 
     @Override
@@ -116,16 +134,22 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             statusImageView.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
             statusImageView.setBackgroundTintList(ColorStateList.valueOf(color));
 
-            Animation scaleAnimation = AnimationUtils.loadAnimation(mContext, R.anim.view_scale_anim);
-            scaleAnimation.setDuration(mContext.getResources().getInteger(android.R.integer.config_longAnimTime));
-            statusLayout.setAnimation(scaleAnimation);
-            scaleAnimation.start();
+            if (pos > mPosition) {
+                Animation scaleAnimation = AnimationUtils.loadAnimation(mContext, R.anim.view_scale_anim);
+                scaleAnimation.setDuration(mContext.getResources().getInteger(android.R.integer.config_longAnimTime));
+                statusLayout.setAnimation(scaleAnimation);
+                scaleAnimation.start();
 
-            ObjectAnimator animation = ObjectAnimator.ofInt(lineView, "progress", 0, progress);
-            animation.setDuration(700);
-            animation.setStartDelay(100);
-            animation.setInterpolator(new LinearInterpolator());
-            animation.start();
+                ObjectAnimator animation = ObjectAnimator.ofInt(lineView, "progress", 0, progress);
+                animation.setDuration(700);
+                animation.setStartDelay(100);
+                animation.setInterpolator(new LinearInterpolator());
+                animation.start();
+
+                mPosition = pos;
+            } else {
+                lineView.setProgress(progress);
+            }
 
             lineView.setVisibility(pos == mTimelineList.size() - 1 ? View.GONE : View.VISIBLE);
             dateTime.setText(timeline.getTime().equals("null") ? "--:--" : timeline.getTime());
@@ -139,6 +163,20 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             int id = view.getId();
             if (id == itemView.getId())
                 mCallbackListener.onEventClick(timeline.getTime());
+        }
+    }
+
+    private class ViewHolder extends RecyclerView.ViewHolder {
+        ViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        void bindView() {
+            int padding = EventActivity.dipToPixels(8, mContext);
+            RecyclerView.LayoutParams cardParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, EventActivity.dipToPixels(240, mContext));
+            cardParams.setMargins(0, 0, 0, EventActivity.dipToPixels(16, mContext));
+            itemView.setPadding(padding, padding, padding, padding);
+            itemView.setLayoutParams(cardParams);
         }
     }
 }
