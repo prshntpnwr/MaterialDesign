@@ -1,5 +1,6 @@
 package com.example.prashant.materialdesign.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,11 @@ public class DialogActivity extends AppCompatActivity {
 
     public void dismiss(View view) {
         finishAfterTransition();
+    }
+
+    public void translation(View view) {
+        Intent intent = new Intent(this, TranslationActivity.class);
+        startActivity(intent);
     }
 
     @Override

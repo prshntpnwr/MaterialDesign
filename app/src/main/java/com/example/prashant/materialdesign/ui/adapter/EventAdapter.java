@@ -167,15 +167,14 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {
+
         ViewHolder(View itemView) {
             super(itemView);
         }
 
         void bindView() {
-            int padding = EventActivity.dipToPixels(8, mContext);
-            RecyclerView.LayoutParams cardParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, EventActivity.dipToPixels(240, mContext));
+            RecyclerView.LayoutParams cardParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             cardParams.setMargins(0, 0, 0, EventActivity.dipToPixels(16, mContext));
-            itemView.setPadding(padding, padding, padding, padding);
             itemView.setLayoutParams(cardParams);
         }
     }
