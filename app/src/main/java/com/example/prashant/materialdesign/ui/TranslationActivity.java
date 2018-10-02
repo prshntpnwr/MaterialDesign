@@ -1,13 +1,19 @@
 package com.example.prashant.materialdesign.ui;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.transition.Transition;
+import android.support.transition.TransitionInflater;
+import android.support.transition.TransitionManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
@@ -17,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.prashant.materialdesign.R;
+import com.example.prashant.materialdesign.ui.transitions.GravityArcMotion;
 
 public class TranslationActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,9 +59,6 @@ public class TranslationActivity extends AppCompatActivity implements View.OnCli
     }
 
     void launchFab() {
-//         MARGIN_RIGHT = 16dp
-//         FAB_BUTTON_RADIUS = fab width
-
         width = imageView.getWidth();
         height = imageView.getHeight();
 
@@ -69,43 +73,26 @@ public class TranslationActivity extends AppCompatActivity implements View.OnCli
         parameters.height = imageView.getHeight();
         revealView.setLayoutParams(parameters);
 
-        fab.animate()
-                .translationX(-x)
-                .translationY(-y)
-                .setDuration(200)
-                .setListener(new Animator.AnimatorListener() {
+        ObjectAnimator objectAnimator =
+                ObjectAnimator.ofFloat(fab, View.X, View.Y, new GravityArcMotion().getPath(0, 0, -x, -y));
+        objectAnimator.setDuration(500);
+        objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        objectAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Animator anim = ViewAnimationUtils.createCircularReveal(revealView, width / 2, height / 2, 28 * pixelDensity, hypotenuse);
+                anim.setDuration(350);
+                anim.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
                     }
 
                     @Override
                     public void onAnimationEnd(Animator animator) {
-                        Animator anim = ViewAnimationUtils.createCircularReveal(revealView, width / 2, height / 2, 28 * pixelDensity, hypotenuse);
-                        anim.setDuration(350);
-                        anim.addListener(new Animator.AnimatorListener() {
-                            @Override
-                            public void onAnimationStart(Animator animator) {
-                            }
-
-                            @Override
-                            public void onAnimationEnd(Animator animator) {
-                                layoutButtons.setVisibility(View.VISIBLE);
-                                closeButton.setVisibility(View.VISIBLE);
-                                layoutButtons.startAnimation(alphaAppear);
-                                closeButton.startAnimation(alphaAppear);
-                            }
-
-                            @Override
-                            public void onAnimationCancel(Animator animator) {
-                            }
-
-                            @Override
-                            public void onAnimationRepeat(Animator animator) {
-                            }
-                        });
-                        fab.setVisibility(View.GONE);
-                        revealView.setVisibility(View.VISIBLE);
-                        anim.start();
+                        layoutButtons.setVisibility(View.VISIBLE);
+                        closeButton.setVisibility(View.VISIBLE);
+                        layoutButtons.startAnimation(alphaAppear);
+                        closeButton.startAnimation(alphaAppear);
                     }
 
                     @Override
@@ -116,12 +103,83 @@ public class TranslationActivity extends AppCompatActivity implements View.OnCli
                     public void onAnimationRepeat(Animator animator) {
                     }
                 });
+                fab.setVisibility(View.GONE);
+                revealView.setVisibility(View.VISIBLE);
+                anim.start();
+            }
+        });
+        objectAnimator.start();
+    }
+
+    void startFab() {
+        width = imageView.getWidth();
+        height = imageView.getHeight();
+
+        x = width / 2;
+        y = height / 2;
+        hypotenuse = (int) Math.hypot(x, y);
+
+        x = (int) (x - ((16 * pixelDensity) + (28 * pixelDensity)));
+
+        FrameLayout.LayoutParams parameters = (FrameLayout.LayoutParams)
+                revealView.getLayoutParams();
+        parameters.height = imageView.getHeight();
+        revealView.setLayoutParams(parameters);
+
+            fab.animate()
+                    .translationX(-x)
+                    .translationY(-y)
+                    .setDuration(200)
+                    .setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            Animator anim = ViewAnimationUtils.createCircularReveal(revealView, width / 2, height / 2, 28 * pixelDensity, hypotenuse);
+                            anim.setDuration(350);
+                            anim.addListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animator) {
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animator) {
+                                    layoutButtons.setVisibility(View.VISIBLE);
+                                    closeButton.setVisibility(View.VISIBLE);
+                                    layoutButtons.startAnimation(alphaAppear);
+                                    closeButton.startAnimation(alphaAppear);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animator) {
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animator) {
+                                }
+                            });
+                            fab.setVisibility(View.GONE);
+                            revealView.setVisibility(View.VISIBLE);
+                            anim.start();
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
     }
 
     void closeFab() {
         alphaDisappear.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) { }
+            public void onAnimationStart(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -168,7 +226,7 @@ public class TranslationActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab:
-                launchFab();
+                startFab();
                 break;
 
             case R.id.closeButton:
