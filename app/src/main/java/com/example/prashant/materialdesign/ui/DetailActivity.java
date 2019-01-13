@@ -53,7 +53,6 @@ public class DetailActivity extends AppCompatActivity {
         slide.setDuration(400);
         transitionSet.addTransition(slide);
 
-        //
         final Fade fade = new Fade();
         fade.excludeTarget(android.R.id.statusBarBackground, true);
         fade.excludeTarget(android.R.id.navigationBarBackground, true);

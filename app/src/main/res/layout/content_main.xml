@@ -5,9 +5,10 @@
     android:id="@+id/recycler_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layoutAnimation="@anim/layout_animation_fall_down"
     android:choiceMode="singleChoice"
     android:clipToPadding="false"
+    android:layout_marginBottom="?attr/actionBarSize"
+    android:layoutAnimation="@anim/layout_animation_fall_down"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.prashant.materialdesign.ui.MainActivity"
     tools:showIn="@layout/activity_main" />

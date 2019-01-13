@@ -10,10 +10,12 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:elevation="0dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
+            app:title="@string/app_name"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -32,6 +34,7 @@
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
         app:fabSize="normal"
+        app:rippleColor="@color/colorAccent"
         app:srcCompat="@android:drawable/ic_input_add"
         app:layout_anchor="@id/bottom_app_bar" />
 
