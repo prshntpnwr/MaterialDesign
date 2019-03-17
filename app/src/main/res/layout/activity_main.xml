@@ -34,8 +34,8 @@
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
         app:fabSize="normal"
-        app:rippleColor="@color/colorAccent"
-        app:srcCompat="@android:drawable/ic_input_add"
+        app:backgroundTint="@android:color/white"
+        app:rippleColor="@color/color_green"
         app:layout_anchor="@id/bottom_app_bar" />
 
     <android.support.design.bottomappbar.BottomAppBar
@@ -45,6 +45,7 @@
         android:layout_gravity="bottom"
         app:backgroundTint="@color/colorPrimary"
         app:fabAttached="true"
+        android:elevation="80dp"
         app:fabAlignmentMode="end"/>
 
 </android.support.design.widget.CoordinatorLayout>
