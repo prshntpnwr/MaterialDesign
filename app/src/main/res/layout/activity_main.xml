@@ -34,8 +34,9 @@
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
         app:fabSize="normal"
-        app:backgroundTint="@android:color/white"
-        app:rippleColor="@color/color_green"
+        android:src="@drawable/avd_edit"
+        android:backgroundTint="@color/color_green"
+        app:rippleColor="@android:color/white"
         app:layout_anchor="@id/bottom_app_bar" />
 
     <android.support.design.bottomappbar.BottomAppBar

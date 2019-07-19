@@ -60,11 +60,11 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab:
-                Intent intent = new Intent(MainActivity.this, DialogActivity.class);
+                Intent intent = new Intent(this, DialogActivity.class);
                 FabTransform.addExtras(intent,
-                        ContextCompat.getColor(MainActivity.this, R.color.colorAccent),
-                        android.R.drawable.ic_input_add);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, fab,
+                        ContextCompat.getColor(this, R.color.color_green),
+                        R.drawable.avd_edit);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, fab,
                         getString(R.string.transition_dialog));
                 startActivity(intent, options.toBundle());
                 break;
